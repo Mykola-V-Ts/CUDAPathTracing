@@ -11,7 +11,7 @@ Axis aligned planes and emmissive material are made according to later chapters 
 
 * Basic unidirectional path tracing algorithm as described in [Ray Tracing in One Weekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
 * Spheres and planes as geometric primitives
-* Lambertian, metallic and emissive materials
+* Diffuse, metallic and emissive materials
 * NVDIA GPU support only
 
 ## Acknowledgments
