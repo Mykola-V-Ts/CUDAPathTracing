@@ -82,35 +82,35 @@ __global__ void create_scene(hittable** d_list, hittable** d_scene, camera** d_c
     if (threadIdx.x == 0 && blockIdx.x == 0) {
         
         // Materials
-        auto material_grey = new lambertian(vec3(0.99, 0.99, 0.99));
-        auto material_emissive = new diffuse_light(vec3(1, 1, 1));
-        auto material_green = new lambertian(vec3(0.01, 0.8, 0.01));
-        auto material_red = new lambertian(vec3(0.8, 0.01, 0.01));
-        auto material_chrome = new metal(vec3(0.8, 0.8, 0.8), 0.0);
+        auto material_emissive = new diffuse_light(vec3(1.1f, 1.1f, 1.1f));
+        auto material_white = new lambertian(vec3(0.9f, 0.9f, 0.9f));
+        auto material_green = new lambertian(vec3(0.04f, 0.7f, 0.04f));
+        auto material_red = new lambertian(vec3(0.7f, 0.04f, 0.04f));
+        auto material_chrome = new metal(vec3(0.8f, 0.8f, 0.8f), 0);
 
         int i = 0;
         
         // Light source
-        d_list[i++] = new xz_plane(-7, 7, 1, 15, 7.999, material_emissive);
+        d_list[i++] = new xz_plane(-7, 7, -2, 15, 7.999f, material_emissive);
 
         // Walls of the room
-        d_list[i++] = new xz_plane(-8, 8, 0, 16, 8, material_grey);
-        d_list[i++] = new xz_plane(-8, 8, 0, 16, 0, material_grey);
-        d_list[i++] = new yz_plane(0, 8, 0, 16, 8, material_green);
-        d_list[i++] = new yz_plane(0, 8, 0, 16, -8, material_red);
-        d_list[i++] = new xy_plane(-8, 8, 0, 8, 16, material_grey);
+        d_list[i++] = new xz_plane(-8, 8, -3, 16, 8, material_white);
+        d_list[i++] = new xz_plane(-8, 8, -3, 16, 0, material_white);
+        d_list[i++] = new yz_plane(0, 8, -3, 16, 8, material_green);
+        d_list[i++] = new yz_plane(0, 8, -3, 16, -8, material_red);
+        d_list[i++] = new xy_plane(-8, 8, 0, 8, 16, material_white);
 
         // Cube
-        d_list[i++] = new xz_plane(1, 5, 11, 15, 4, material_grey);
-        d_list[i++] = new yz_plane(0, 4, 11, 15, 5, material_grey);
-        d_list[i++] = new yz_plane(0, 4, 11, 15, 1, material_grey);
-        d_list[i++] = new xy_plane(1, 5, 0, 4, 11, material_grey);
-        d_list[i++] = new xy_plane(1, 5, 0, 4, 15, material_grey);
+        d_list[i++] = new xz_plane(1, 5, 11, 15, 4, material_white);
+        d_list[i++] = new yz_plane(0, 4, 11, 15, 5, material_white);
+        d_list[i++] = new yz_plane(0, 4, 11, 15, 1, material_white);
+        d_list[i++] = new xy_plane(1, 5, 0, 4, 11, material_white);
+        d_list[i++] = new xy_plane(1, 5, 0, 4, 15, material_white);
 
         // Spheres
-        d_list[i++] = new sphere(vec3(-2, 1.5, 8), 1.5, material_grey);
-        d_list[i++] = new sphere(vec3(1.5, 0.6, 5), 0.6, material_grey);
-        d_list[i++] = new sphere(vec3(0, 0.6, 6), 0.3, material_chrome);
+        d_list[i++] = new sphere(vec3(-2.5f, 1.5f, 9), 1.5f, material_white);
+        d_list[i++] = new sphere(vec3(1.3f, 0.4f, 3.5f), 0.4f, material_white);
+        d_list[i++] = new sphere(vec3(0, 0.6f, 6), 0.25f, material_chrome);
         
         *d_scene = new hittable_list(d_list, i);
 
@@ -119,7 +119,7 @@ __global__ void create_scene(hittable** d_list, hittable** d_scene, camera** d_c
         vec3 lookat(0, 1, 1);
 
         float dist_to_focus = (lookfrom - lookat).length(); // Not needed for current scene
-        float aperture = 0.1;                               // Not needed for current scene
+        float aperture = 0.1f;                              // Not needed for current scene
         *d_camera = new camera(lookfrom,
             lookat,
             vec3(0, 1, 0),
@@ -191,9 +191,9 @@ int main() {
     for (int j = ny - 1; j >= 0; j--) {
         for (int i = 0; i < nx; i++) {
             size_t pixel_index = j * nx + i;
-            int ir = int(255.99 * fb[pixel_index].r());
-            int ig = int(255.99 * fb[pixel_index].g());
-            int ib = int(255.99 * fb[pixel_index].b());
+            int ir = int(255.99f * fb[pixel_index].r());
+            int ig = int(255.99f * fb[pixel_index].g());
+            int ib = int(255.99f * fb[pixel_index].b());
             output << ir << " " << ig << " " << ib << "\n";
         }
     }

@@ -1,5 +1,7 @@
 # Path tracing renderer
 
+![Render example](RenderExample.png)
+
 The main purpose of this project is to deepen my understanding of ray tracing by implementing algorithm from Peter Shirley's book ["Ray Tracing in One Weekend"](https://raytracing.github.io/books/RayTracingInOneWeekend.html).
 
 Axis aligned planes and emmissive material are made according to later chapters of [Ray Tracing: The Next Week](https://raytracing.github.io/books/RayTracingTheNextWeek.html)
